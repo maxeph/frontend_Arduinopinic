@@ -2,6 +2,38 @@
 body {
   padding-top: 51px;
 }
+/*#######################################
+Widget display
+####################################### */
+.widgetrow {
+  text-align: center;
+}
+.widgetpan {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.widgetpan .widget {
+  display: inline-block;
+  background-color: white;
+  border-radius: 50%;
+  height:150px;
+  width:150px;
+  border-color: #f49542;
+  border-style: solid;
+  border-width: 7px;
+  vertical-align:middle;
+  text-align:center;
+  padding-top: 41px;
+  color:#f49542;
+}
+.widgetpan .widget span {
+  font-size: 40px;
+  text-align:center;
+  font-weight: bold;
+}
+
+
+
 /* test 1 -> 4 is for debugging grid */
 .test1 {
   background-color: green;
