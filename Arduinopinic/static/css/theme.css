@@ -1,3 +1,8 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 51px;
+}
+/* test 1 -> 4 is for debugging grid */
 .test1 {
   background-color: green;
 }

@@ -11,11 +11,32 @@
   <script src="{% static 'bootstrap/js/ie-emulation-modes-warning.js' %}"></script>
   <!-- Boostrap end of initialisation -->
 
-  <link rel="icon" href="{% static 'img/favicon.ico' %}">
+  <link rel="icon" href="{% static 'img/flavicon.png' %}">
   <title>Arduinopinic v{{ version }}</title>
 </head>
 <body>
-
+  <nav class="navbar navbar-inverse navbar-fixed-top"> <!-- Def of navbar : Inversed color - fixed to top of screen -->
+    <div class="container-fluid"> <!-- container so that nav bar fit to all screen -->
+      <div class="navbar-header"> <!-- Brand name and button for xs screen -->
+        <a class="navbar-brand" href="#"><img src="{% static 'img/flavicon.png' %}" width="30" height="30" alt="Arduinopinic"></a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> <!-- Toggle button if xs screen -->
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar"> <!-- Part of nav bar collapsed if xd xs screen -->
+        <ul class="nav navbar-nav"> <!-- items on left of navbar -->
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Page 1</a></li>
+          <li><a href="#">Page 2</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right"> <!-- items on right of navbar -->
+          <li><span class="navbar-text">Daemon status</span></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div class="container-fluid"> <!-- Main container -->
     <div class="row"> <!-- row for header widgets and collapse button -->
       <div class="col-sm-12 test4"><h3>Collapse 1 <a class="nlink" data-toggle="collapse" data-target="#pan_widget">&#10063;</a></h3></div>
