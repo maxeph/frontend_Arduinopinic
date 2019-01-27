@@ -2,6 +2,10 @@
 body {
   padding-top: 51px;
 }
+.nobtn {
+  background-color: transparent;
+  border: none;
+}
 /*#######################################
 Widget display
 ####################################### */
