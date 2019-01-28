@@ -41,10 +41,29 @@ Widget display
   text-align:center;
   font-weight: bold;
 }
+/*#######################################
+Webcam display
+####################################### */
+.camheader {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+.cambody {
+  display: block;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 10px;
 
-
-
-/* test 1 -> 4 is for debugging grid */
+}
+/*#######################################
+test 1 -> 4 is for debugging grid
+####################################### */
 .test1 {
   background-color: green;
 }

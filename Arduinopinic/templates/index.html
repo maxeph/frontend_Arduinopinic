@@ -32,7 +32,7 @@
           <li><a href="#">Page 2</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right"> <!-- items on right of navbar -->
-          <li><span class="navbar-text">Daemon status</span></li>
+          <li><a href="#" id=vstatus>Daemon status : <font  id=vstatus style="font-size: 22px;color:green;">&#9673; </font></a></li>
         </ul>
       </div>
     </div>
@@ -56,8 +56,31 @@
       <div class="col-sm-12"><h3>Monitoring <button class="nobtn" data-toggle="collapse" data-target="#pan_graph">&#10063;</button></h3></div>
     </div>
     <div class="row collapse in" id=pan_graph> <!-- row for webcam/graph collpasable-->
-      <div class="col-sm-6 test2">{% lorem 4 p %}</div>
-      <div class="col-sm-6 test3">{% lorem 1 p %}</div>
+      <div class="col-sm-6">
+      <div class="container-fluid camheader">Webcam</div>
+      <div class="container-fluid cambody">text</div>
+      </div> <!-- pan for webcam-->
+      <div class="col-sm-6">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#24h">24 hours</a></li>
+          <li><a data-toggle="tab" href="#7d">7 days</a></li>
+          <li><a data-toggle="tab" href="#30d">30 days</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="24h" class="tab-pane fade in active">
+            <h3>HOME</h3>
+            <p>Some content.</p>
+          </div>
+          <div id="7j" class="tab-pane fade">
+            <h3>Menu 1</h3>
+            <p>Some content in menu 1.</p>
+          </div>
+          <div id="30d" class="tab-pane fade">
+            <h3>Menu 2</h3>
+            <p>Some content in menu 2.</p>
+          </div>
+        </div>
+      </div> <!-- pan for graph-->
     </div>
   </div>
 
