@@ -1,2 +1,6 @@
 
 *.pyc
+Arduinopinic/migrations/
+server/settings.py
+manage.py
+db.sqlite3
