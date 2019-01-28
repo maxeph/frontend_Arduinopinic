@@ -38,6 +38,11 @@
     </div>
   </nav>
   <div class="container-fluid"> <!-- Main container -->
+    <div class="row"> <!-- row for alerts to be popup -->
+      <div class="container">
+        <div class="col-sm-12" id=alert_box></div>
+      </div>
+    </div>
     <div class="row"> <!-- row for header widgets and collapse button -->
       <div class="col-sm-12"><h3>Widgets <button class="nobtn" data-toggle="collapse" data-target="#pan_widget">&#10063;</button></h3></div>
     </div>
@@ -60,5 +65,6 @@
   <!-- Boostrap JSinitialisation -->
   <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/basics.js' %}"></script>
 </body>
 </html>
