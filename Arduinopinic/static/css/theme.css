@@ -2,9 +2,10 @@
 body {
   padding-top: 51px;
 }
-.nobtn {
+.nobtn, .nobtn:focus {
   background-color: transparent;
   border: none;
+  outline: none;
 }
 /*#######################################
 alert box display
