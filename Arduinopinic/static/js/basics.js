@@ -68,4 +68,28 @@ function updateWidgets()
     colorWidgets('red');
   });
 }
+function updateChart(spinner,tchart,url)
+{
+  $(spinner).html('<img src="http://www.mediaforma.com/sdz/jquery/ajax-loader.gif">');
+  $.getJSON( url, function(data) {
+    $(spinner).html('');
+    for (i in data) {
+      data[i].date = new Date(data[i].date);
+      tchart.data.labels[i] = moment(data[i].date).format("ddd HH[h]");
+      tchart.data.datasets[0].data[i] = data[i].tempext;
+      tchart.data.datasets[1].data[i] = data[i].tempeau;
+      tchart.data.datasets[2].data[i] = data[i].humid;
+    }
+
+    tchart.update();
+  })
+  .fail(function(data) {
+    pop_alert("<Strong>Error !</Strong> Impossible to get graphic data's","danger");
+  });
+}
+
+/* Launch*/
 updateWidgets();
+updateChart('#spinner1',d24chart,updateChartURL1)
+updateChart('#spinner2',d7chart,updateChartURL2)
+updateChart('#spinner3',d30chart,updateChartURL3)

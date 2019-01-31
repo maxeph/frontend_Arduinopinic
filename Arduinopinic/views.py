@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from datetime import datetime, timedelta
 from Arduinopinic.models import temp_db
 import os
@@ -32,3 +32,16 @@ def updateWidgets(request):
 		server["status"] = False
 	#########################################################################
 	return JsonResponse(server)
+
+def updateChart(request,type):
+	###### Test if DB populated and taking last 24h/7d/30d ##################
+	end_range = datetime.now()
+	if type == '1':
+		range = timedelta(days=1)
+	elif type == '2':
+		range = timedelta(days=7)
+	elif type == '3':
+		range = timedelta(days=30)
+	beg_range = end_range - range
+	chart = list(temp_db.objects.filter(date__gte=beg_range).values())
+	return JsonResponse(chart, safe=False)

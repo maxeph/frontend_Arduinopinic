@@ -57,27 +57,27 @@
     </div>
     <div class="row collapse in" id=pan_graph> <!-- row for webcam/graph collpasable-->
       <div class="col-sm-6">
-      <div class="container-fluid camheader">Webcam</div>
-      <div class="container-fluid cambody">text</div>
+        <div class="container-fluid camheader">Webcam</div>
+        <div class="container-fluid cambody">text</div>
       </div> <!-- pan for webcam-->
       <div class="col-sm-6">
         <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#24h">24 hours</a></li>
-          <li><a data-toggle="tab" href="#7d">7 days</a></li>
-          <li><a data-toggle="tab" href="#30d">30 days</a></li>
+          <li class="active"><a data-toggle="tab" href="#d24h">24 hours</a></li>
+          <li><a data-toggle="tab" href="#d7">7 days</a></li>
+          <li><a data-toggle="tab" href="#d30">30 days</a></li>
         </ul>
         <div class="tab-content">
-          <div id="24h" class="tab-pane fade in active">
-            <h3>HOME</h3>
-            <p>Some content.</p>
+          <div id="d24h" class="tab-pane fade in active">
+            <div id="spinner1"></div>
+            <div id="graph1"><canvas id='graphique1'></canvas></div>
           </div>
-          <div id="7d" class="tab-pane fade">
-            <h3>Menu 1</h3>
-            <p>Some content in menu 1.</p>
+          <div id="d7" class="tab-pane fade">
+            <div id="spinner2"></div>
+            <div id="graph2"><canvas id='graphique2'></canvas></div>
           </div>
-          <div id="30d" class="tab-pane fade">
-            <h3>Menu 2</h3>
-            <p>Some content in menu 2.</p>
+          <div id="d30" class="tab-pane fade">
+            <div id="spinner3"></div>
+            <div id="graph3"><canvas id='graphique3'></canvas></div>
           </div>
         </div>
       </div> <!-- pan for graph-->
@@ -88,8 +88,209 @@
   <!-- Boostrap JSinitialisation -->
   <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-  <script>updateURL='{% url "Widgets" %}'</script>
+  <script>
+  updateURL='{% url "Widgets" %}'
+  updateChartURL1='{% url "Chart" type=1 %}'
+  updateChartURL2='{% url "Chart" type=2%}'
+  updateChartURL3='{% url "Chart" type=3%}'
+  </script>
   <script src="{% static 'js/moment-with-locales.js' %}"></script>
-  <script src="{% static 'js/basics.js' %}"></script>
+  <script src="{% static 'js/Chart.js' %}"></script>
+  <script>
+  var canvas1 = document.getElementById('graphique1').getContext('2d');
+  var canvas2 = document.getElementById('graphique2').getContext('2d');
+  var canvas3 = document.getElementById('graphique3').getContext('2d');
+  var basicgraph1 = {
+    type: 'line',
+    data: {
+      labels: [''],
+      datasets: [{
+        label: "Température",
+        backgroundColor: 'rgb(60, 179, 113)',
+        borderColor: 'rgb(60, 179, 113)',
+        fill: false,
+        data: [''],
+        yAxisID: 'celsius',
+      },
+      {
+        label: "Eau",
+        backgroundColor: 'rgb(30, 144, 255)',
+        borderColor: 'rgb(30, 144, 255)',
+        fill: false,
+        data: [''],
+        yAxisID: 'celsius',
+      },
+      {
+        label: "Humidité",
+        backgroundColor: 'rgb(220,220,220)',
+        borderColor: 'rgb(220,220,220)',
+        fill: true,
+        data: [''],
+        yAxisID: 'humidite',
+      }
+    ]
+  },
+  // Configuration options go here
+  options: {
+    maintainAspectRatio: true,
+    scales: {
+      yAxes: [{
+        type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+        display: true,
+        position: 'left',
+        id: 'celsius',
+      }, {
+        ticks:{
+          suggestedMin: 0,
+          suggestedMax: 100
+        },
+        type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+        display: true,
+        position: 'right',
+        id: 'humidite',
+
+
+        // grid line settings
+        gridLines: {
+          drawOnChartArea: false, // only want the grid lines for one axis to show up
+        },
+      }],
+    },
+    title: {
+      display:false,
+    },
+
+  }
+};
+var basicgraph2 = {
+  type: 'line',
+  data: {
+    labels: [''],
+    datasets: [{
+      label: "Température",
+      backgroundColor: 'rgb(60, 179, 113)',
+      borderColor: 'rgb(60, 179, 113)',
+      fill: false,
+      data: [''],
+      yAxisID: 'celsius',
+    },
+    {
+      label: "Eau",
+      backgroundColor: 'rgb(30, 144, 255)',
+      borderColor: 'rgb(30, 144, 255)',
+      fill: false,
+      data: [''],
+      yAxisID: 'celsius',
+    },
+    {
+      label: "Humidité",
+      backgroundColor: 'rgb(220,220,220)',
+      borderColor: 'rgb(220,220,220)',
+      fill: true,
+      data: [''],
+      yAxisID: 'humidite',
+    }
+  ]
+},
+// Configuration options go here
+options: {
+  maintainAspectRatio: true,
+  scales: {
+    yAxes: [{
+      type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+      display: true,
+      position: 'left',
+      id: 'celsius',
+    }, {
+      ticks:{
+        suggestedMin: 0,
+        suggestedMax: 100
+      },
+      type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+      display: true,
+      position: 'right',
+      id: 'humidite',
+
+
+      // grid line settings
+      gridLines: {
+        drawOnChartArea: false, // only want the grid lines for one axis to show up
+      },
+    }],
+  },
+  title: {
+    display:false,
+  },
+
+}
+};
+var basicgraph3 = {
+  type: 'line',
+  data: {
+    labels: [''],
+    datasets: [{
+      label: "Température",
+      backgroundColor: 'rgb(60, 179, 113)',
+      borderColor: 'rgb(60, 179, 113)',
+      fill: false,
+      data: [''],
+      yAxisID: 'celsius',
+    },
+    {
+      label: "Eau",
+      backgroundColor: 'rgb(30, 144, 255)',
+      borderColor: 'rgb(30, 144, 255)',
+      fill: false,
+      data: [''],
+      yAxisID: 'celsius',
+    },
+    {
+      label: "Humidité",
+      backgroundColor: 'rgb(220,220,220)',
+      borderColor: 'rgb(220,220,220)',
+      fill: true,
+      data: [''],
+      yAxisID: 'humidite',
+    }
+  ]
+},
+// Configuration options go here
+options: {
+  maintainAspectRatio: true,
+  scales: {
+    yAxes: [{
+      type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+      display: true,
+      position: 'left',
+      id: 'celsius',
+    }, {
+      ticks:{
+        suggestedMin: 0,
+        suggestedMax: 100
+      },
+      type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+      display: true,
+      position: 'right',
+      id: 'humidite',
+
+
+      // grid line settings
+      gridLines: {
+        drawOnChartArea: false, // only want the grid lines for one axis to show up
+      },
+    }],
+  },
+  title: {
+    display:false,
+  },
+
+}
+};
+var d24chart = new Chart(canvas1, basicgraph1);
+var d7chart = new Chart(canvas2, basicgraph2);
+var d30chart = new Chart(canvas3, basicgraph3);
+
+</script>
+<script src="{% static 'js/basics.js' %}"></script>
 </body>
 </html>

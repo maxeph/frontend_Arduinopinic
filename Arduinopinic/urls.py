@@ -20,4 +20,5 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name = 'index'      ),
     url(r'^updateWidgets/$', views.updateWidgets, name = 'Widgets'),
+    url(r'^updateChart/(?P<type>[1-3]{1})/$', views.updateChart, name = 'Chart'),
 ]
