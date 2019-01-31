@@ -4,3 +4,5 @@ Arduinopinic/migrations/
 server/settings.py
 manage.py
 db.sqlite3
+db.sqlite3.empty
+db.sqlite3.pop
