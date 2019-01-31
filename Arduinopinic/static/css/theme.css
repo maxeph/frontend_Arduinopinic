@@ -63,6 +63,15 @@ Webcam display
   margin-bottom: 10px;
 
 }
+#spinner1, #spinner2, #spinner3 {
+  position: absolute;
+  top:48%;
+  left: 48%;
+}
+#d24h, #d7, #d30 {
+  min-height: 300px;
+}
+
 /*#######################################
 test 1 -> 4 is for debugging grid
 ####################################### */
