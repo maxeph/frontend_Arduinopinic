@@ -1,4 +1,5 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,8 +28,8 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar"> <!-- Part of nav bar collapsed if xd xs screen -->
         <ul class="nav navbar-nav navbar-left"> <!-- items on left of navbar -->
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="{% url "Listing" page=1 %}">Metrics</a></li>
+          <li><a href="{% url "Index"%}">Home</a></li>
+          <li class="active"><a href="#">Metrics</a></li>
           <li><a href="#">Page 2</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right"> <!-- items on right of navbar -->
@@ -37,50 +38,74 @@
       </div>
     </div>
   </nav>
-  <div class="container-fluid"> <!-- Main container -->
+  <div class="container"> <!-- Main container -->
     <div class="row"> <!-- row for alerts to be popup -->
       <div class="container">
         <div class="col-sm-12" id=alert_box></div>
       </div>
     </div>
+    <div class="row">
+      <h2>List of measures</h2>
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-success">Export to csv</button><br/>
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li><a href='{% url "Listing" page=page_obj.previous_page_number %}'>&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li><a href='{% url "Listing" page=i %}'>{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li><a href='{% url "Listing" page=page_obj.next_page_number %}'>&raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+    </div>
     <div class="row"> <!-- row for header widgets and collapse button -->
-      <div class="col-sm-12"><h3>Widgets <button class="nobtn" data-toggle="collapse" data-target="#pan_widget">&#9662;</button></h3></div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Température</th>
+            <th>Humidité</th>
+            <th>Eau</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in page_obj %}
+          <tr><td>{{ entry.date }}</td><td>{{ entry.tempext }} °C</td><td>{{ entry.humid }} %</td><td>{{ entry.tempeau }} °C</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    <div class="row collapse in widgetrow" id=pan_widget> <!-- row for widgets collpasable-->
-      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=wtemp><span id=vtemp>N/A</span><br/>&#8451;</div></div>
-      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=whumid><span id=vhumid>N/A</span><br/>%</div></div>
-      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=weau><span id=veau>N/A</span><br/>&#8451;</div></div>
-      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=wlevel><span id=vlevel>N/A</span><br/></div></div>
-    </div>
-    <div class="row"> <!-- row for header webcam/graph and collapse button -->
-      <div class="col-sm-12"><h3>Monitoring <button class="nobtn" data-toggle="collapse" data-target="#pan_graph">&#9662;</button></h3></div>
-    </div>
-    <div class="row collapse in" id=pan_graph> <!-- row for webcam/graph collpasable-->
-      <div class="col-sm-6"> <!-- pan for webcam-->
-        <div class="container-fluid camheader">Webcam</div>
-        <div class="container-fluid cambody"><img src="{% static 'img/webcam.jpg' %}" style="max-width:100%"></div>
-      </div>
-      <div class="col-sm-6"> <!-- pan for graph-->
-        <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#d24h">24 hours</a></li>
-          <li><a data-toggle="tab" href="#d7">7 days</a></li>
-          <li><a data-toggle="tab" href="#d30">30 days</a></li>
-        </ul>
-        <div class="tab-content">
-          <div id="d24h" class="tab-pane fade in active">
-            <div id="spinner1"></div>
-            <div id="graph1"><canvas id='graphique1'></canvas></div>
-          </div>
-          <div id="d7" class="tab-pane fade">
-            <div id="spinner2"></div>
-            <div id="graph2"><canvas id='graphique2'></canvas></div>
-          </div>
-          <div id="d30" class="tab-pane fade">
-            <div id="spinner3"></div>
-            <div id="graph3"><canvas id='graphique3'></canvas></div>
-          </div>
-        </div>
-      </div> <!-- pan for graph-->
+    <div class="row">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li><a href='{% url "Listing" page=page_obj.previous_page_number %}'>&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li><a href='{% url "Listing" page=i %}'>{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li><a href='{% url "Listing" page=page_obj.next_page_number %}'>&raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
     </div>
   </div>
 
@@ -96,6 +121,6 @@
   </script>
   <script src="{% static 'js/moment-with-locales.js' %}"></script>
   <script src="{% static 'js/Chart.js' %}"></script>
-  <script src="{% static 'js/dashboard.js' %}"></script>
+  <script src="{% static 'js/listing.js' %}"></script>
 </body>
 </html>

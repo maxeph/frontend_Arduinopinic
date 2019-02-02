@@ -5,12 +5,23 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from datetime import datetime, timedelta
 from Arduinopinic.models import temp_db
+from django.core.paginator import Paginator, EmptyPage
 import os
 
 version_global ='0.01a'
 def index(request):
 	version = version_global
 	return render(request, 'index.html', locals())
+
+def listing(request, page=1):
+	version = version_global
+	entries = temp_db.objects.all().order_by('-date')
+	paginator = Paginator(entries, 50)
+	try:
+		page_obj = paginator.page(page)
+	except EmptyPage:
+		page_obj = paginator.page(paginator.num_pages)
+	return render(request, 'listing.html', locals())
 
 def updateWidgets(request):
 	server = dict() # dict to be sent via Json
