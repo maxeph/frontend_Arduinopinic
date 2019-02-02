@@ -31,6 +31,9 @@ function valuesWidgets(pack,locales)
   $('#vtemp').text(Number(pack.tempext).toLocaleString(locales));
   $('#vhumid').text(Number(pack.humid).toLocaleString(locales));
   $('#veau').text(Number(pack.tempeau).toLocaleString(locales));
+  $("#vlevel")
+      .css("width", pack.level + "%")
+      .attr("aria-valuenow", pack.level)
 }
 
 /*################ Function get metrics via Ajax and update widgets ##################################*/

@@ -50,7 +50,12 @@
       <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=wtemp><span id=vtemp>N/A</span><br/>&#8451;</div></div>
       <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=whumid><span id=vhumid>N/A</span><br/>%</div></div>
       <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=weau><span id=veau>N/A</span><br/>&#8451;</div></div>
-      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=wlevel><span id=vlevel>N/A</span><br/></div></div>
+      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widgetlevel" id=wlevel>
+        <div class="progress vertical">
+          <div id =vlevel class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+          </div>
+        </div>
+      </div></div>
     </div>
     <div class="row"> <!-- row for header webcam/graph and collapse button -->
       <div class="col-sm-12"><h3>Monitoring <button class="nobtn" data-toggle="collapse" data-target="#pan_graph">&#9662;</button></h3></div>

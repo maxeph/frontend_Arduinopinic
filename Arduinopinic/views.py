@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+######## Test import ###########
+from random import randint
+################################
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from datetime import datetime, timedelta
@@ -22,6 +25,7 @@ def updateWidgets(request):
 		server["tempext"] = last_entry.tempext
 		server["tempeau"] = last_entry.tempeau
 		server["humid"] = last_entry.humid
+		server["level"] = (33 * randint(0, 3)) + 1 ########TEST
 	else:
 		server["isempty"] = False
 	#########################################################################
