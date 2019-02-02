@@ -1,6 +1,9 @@
 var daemonNotWorking = false;
 var noDataDB = false;
 var outdated = false;
+var tab2 = false;
+var tab3 = false;
+
 
 /* Function to handle alerts in the correspondig div*/
 function pop_alert(msg, type)
@@ -91,5 +94,15 @@ function updateChart(spinner,tchart,url)
 /* Launch*/
 updateWidgets();
 updateChart('#spinner1',d24chart,updateChartURL1)
-updateChart('#spinner2',d7chart,updateChartURL2)
-updateChart('#spinner3',d30chart,updateChartURL3)
+$('.nav-tabs a[href="#d7"]').on('show.bs.tab', function(event){
+  if (tab2 === false) {
+    updateChart('#spinner2',d7chart,updateChartURL2)
+    tab2 = true;
+  }
+});
+$('.nav-tabs a[href="#d30"]').on('show.bs.tab', function(event){
+  if (tab3 === false) {
+    updateChart('#spinner3',d30chart,updateChartURL3)
+    tab3 = true;
+  }
+});

@@ -6,3 +6,6 @@ manage.py
 db.sqlite3
 db.sqlite3.empty
 db.sqlite3.pop
+Arduinopinic/daemon/piserver.py
+Arduinopinic/daemon/log_piserver.log
+Arduinopinic/daemon/cfg_piserver.cfg
