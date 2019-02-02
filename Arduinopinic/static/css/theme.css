@@ -63,6 +63,9 @@ Webcam display
   margin-bottom: 10px;
 
 }
+/*#######################################
+Graph tab display
+####################################### */
 #spinner1, #spinner2, #spinner3 {
   position: absolute;
   top:48%;
