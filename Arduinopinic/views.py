@@ -34,7 +34,7 @@ def updateWidgets(request):
 	return JsonResponse(server)
 
 def updateChart(request,type):
-	###### Test if DB populated and taking last 24h/7d/30d ##################
+	###### Taking last 24h/7d/30d ###########################################
 	end_range = datetime.now()
 	if type == '1':
 		range = timedelta(days=1)

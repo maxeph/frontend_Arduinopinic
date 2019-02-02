@@ -5,12 +5,13 @@ var tab2 = false;
 var tab3 = false;
 
 
-/* Function to handle alerts in the correspondig div*/
+/*################ Function to pop up alerts in the correspondig div #############################*/
 function pop_alert(msg, type)
 {
   $('#alert_box').append('<div class=\"alert alert-' + type + '\" role=\"alert\">' + msg + '<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>');
 };
-/* Function change color of widgets*/
+
+/*################ Function change color of widgets ###############################################*/
 function colorWidgets(color)
 {
   $('#wtemp').css('border-color', color);
@@ -23,38 +24,42 @@ function colorWidgets(color)
   $('#wlevel').css('border-color', color);
   $('#vstatus').css('color', color);
 }
-/* Function to update values via css*/
+
+/*################ Function to update values via css ###############################################*/
 function valuesWidgets(pack,locales)
 {
   $('#vtemp').text(Number(pack.tempext).toLocaleString(locales));
   $('#vhumid').text(Number(pack.humid).toLocaleString(locales));
   $('#veau').text(Number(pack.tempeau).toLocaleString(locales));
 }
-/* Function get metrics via Ajax and update widgets*/
+
+/*################ Function get metrics via Ajax and update widgets ##################################*/
 function updateWidgets()
 {
   $.getJSON( updateURL, function(data) {
     if (data.isnotempty) {
-      data.date = new Date(data.date); /* Coding string date in JS date */
+      data.date = new Date(data.date); /* if database not empty, update widget figures  */
       valuesWidgets(data,'fr-fr')
-      if (moment.duration(moment(data.date).diff()) < (-300000)) { /* if values older than 5 minutes*/
+      if (moment.duration(moment(data.date).diff()) < (-300000)) { /* if values older than 5 minutes alerte and evrything in orange*/
         if (outdated === false) {
           pop_alert("<Strong>Alert !</Strong> It seems that the Daemon has not been running for " + moment.duration(moment(data.date).diff()).humanize() + ". An outdated value is disclosed.","warning");
+          colorWidgets('#f49542');
           outdated = true;
         }
       }
       else {
-        colorWidgets('#428bca');
+        colorWidgets('#428bca'); /* if ok*/
       }
     }
     else {
-      if (noDataDB === false) {
+      if (noDataDB === false) { /* if database empty, alerte  */
         pop_alert("<Strong>Error !</Strong> No data in the database. Make sure to launch the Daemon first.","warning");
+        colorWidgets('#f49542');
         noDataDB = true;
       }
     }
 
-    if (data.status) {
+    if (data.status) { /* check daemon status  */
       $('#vstatus').css('color', 'green');
     }
     else {
@@ -66,11 +71,13 @@ function updateWidgets()
     }
     setTimeout(updateWidgets, 5000);
   })
-  .fail(function(data) {
+  .fail(function(data) { /* if ajax failed  */
     pop_alert("<Strong>Error !</Strong> The Server is not reachable. Make sure that the Pi or Django is correctly running. Then reload.","danger");
     colorWidgets('red');
   });
 }
+
+/*################ Function get metrics via Ajax and update Chart ##################################*/
 function updateChart(spinner,tchart,url)
 {
   $(spinner).html('<img src="http://www.mediaforma.com/sdz/jquery/ajax-loader.gif">');
@@ -90,10 +97,7 @@ function updateChart(spinner,tchart,url)
     pop_alert("<Strong>Error !</Strong> Impossible to get graphic data's","danger");
   });
 }
-
-/* Launch*/
-updateWidgets();
-updateChart('#spinner1',d24chart,updateChartURL1)
+/*################ Setting event function for change of tab and update of hidden chart ###############*/
 $('.nav-tabs a[href="#d7"]').on('show.bs.tab', function(event){
   if (tab2 === false) {
     updateChart('#spinner2',d7chart,updateChartURL2)
@@ -106,3 +110,7 @@ $('.nav-tabs a[href="#d30"]').on('show.bs.tab', function(event){
     tab3 = true;
   }
 });
+
+/*################ Start of application ###############*/
+updateWidgets();
+updateChart('#spinner1',d24chart,updateChartURL1)
