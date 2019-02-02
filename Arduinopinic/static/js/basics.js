@@ -94,6 +94,7 @@ function updateChart(spinner,tchart,url)
     tchart.update();
   })
   .fail(function(data) {
+    $(spinner).html('<img src="https://cdn2.iconfinder.com/data/icons/iconza/iconza_32x32_e01d33/warning.png">');
     pop_alert("<Strong>Error !</Strong> Impossible to get graphic data's","danger");
   });
 }
