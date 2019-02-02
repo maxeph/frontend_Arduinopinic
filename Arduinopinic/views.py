@@ -43,5 +43,5 @@ def updateChart(request,type):
 	elif type == '3':
 		range = timedelta(days=30)
 	beg_range = end_range - range
-	chart = list(temp_db.objects.filter(date__gte=beg_range).values())
+	chart = list(temp_db.objects.filter(date__gte=beg_range).filter(id__iregex='^\d*[1]$').values()) # only get one of tenth ie: only xith id finishing by 1
 	return JsonResponse(chart, safe=False)
