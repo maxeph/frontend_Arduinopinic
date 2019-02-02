@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^updateWidgets/$', views.updateWidgets, name = 'Widgets'),
     url(r'^updateChart/(?P<type>[1-3]{1})/$', views.updateChart, name = 'Chart'),
     url(r'^listing/(?P<page>[0-9]+)', views.listing, name = 'Listing'),
+    url(r'^tools/csv/$', views.export_temp_csv, name = 'csvexport'),
 ]

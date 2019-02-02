@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponse
 from datetime import datetime, timedelta
 from Arduinopinic.models import temp_db
 from django.core.paginator import Paginator, EmptyPage
-import os
+import os, csv
 
 version_global ='0.01a'
 def index(request):
@@ -22,6 +22,16 @@ def listing(request, page=1):
 	except EmptyPage:
 		page_obj = paginator.page(paginator.num_pages)
 	return render(request, 'listing.html', locals())
+
+def export_temp_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="export_temp.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['Date', 'Temperature exterieure', 'Humidite', 'Temperature eau'])
+    temp = temp_db.objects.all().order_by('-date').values_list('date', 'tempext', 'humid', 'tempeau')
+    for temps in temp:
+        writer.writerow(temps)
+    return response
 
 def updateWidgets(request):
 	server = dict() # dict to be sent via Json
