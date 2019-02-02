@@ -56,11 +56,11 @@
       <div class="col-sm-12"><h3>Monitoring <button class="nobtn" data-toggle="collapse" data-target="#pan_graph">&#9662;</button></h3></div>
     </div>
     <div class="row collapse in" id=pan_graph> <!-- row for webcam/graph collpasable-->
-      <div class="col-sm-6">
+      <div class="col-sm-6"> <!-- pan for webcam-->
         <div class="container-fluid camheader">Webcam</div>
-        <div class="container-fluid cambody">text</div>
-      </div> <!-- pan for webcam-->
-      <div class="col-sm-6">
+        <div class="container-fluid cambody"><img src="{% static 'img/webcam.jpg' %}" style="max-width:100%"></div>
+      </div>
+      <div class="col-sm-6"> <!-- pan for graph-->
         <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#d24h">24 hours</a></li>
           <li><a data-toggle="tab" href="#d7">7 days</a></li>

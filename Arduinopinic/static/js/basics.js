@@ -83,7 +83,6 @@ function updateChart(spinner,tchart,url)
   $(spinner).html('<img src="http://www.mediaforma.com/sdz/jquery/ajax-loader.gif">');
   $.getJSON( url, function(data) {
     $(spinner).html('');
-    pop_alert(data.length,'')
     for (i in data) {
       data[i].date = new Date(data[i].date);
       tchart.data.labels[i] = moment(data[i].date).format("ddd HH[h]");
