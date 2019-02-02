@@ -110,7 +110,87 @@ $('.nav-tabs a[href="#d30"]').on('show.bs.tab', function(event){
     tab3 = true;
   }
 });
+/*################ object for Skeleton of graph #######################################################*/
+
+class skeletonGraph {
+  constructor() {
+    this.options = {
+      type: 'line',
+      data: {
+        labels: [''],
+        datasets: [{
+          label: "Température",
+          backgroundColor: 'rgb(60, 179, 113)',
+          borderColor: 'rgb(60, 179, 113)',
+          fill: false,
+          data: [''],
+          yAxisID: 'celsius',
+        },
+        {
+          label: "Eau",
+          backgroundColor: 'rgb(30, 144, 255)',
+          borderColor: 'rgb(30, 144, 255)',
+          fill: false,
+          data: [''],
+          yAxisID: 'celsius',
+        },
+        {
+          label: "Humidité",
+          backgroundColor: 'rgb(220,220,220)',
+          borderColor: 'rgb(220,220,220)',
+          fill: true,
+          data: [''],
+          yAxisID: 'humidite',
+        }
+      ]
+    },
+    // Configuration options go here
+    options: {
+      maintainAspectRatio: true,
+      tooltips: {
+        mode: 'index',
+      },
+      scales: {
+        yAxes: [{
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'left',
+          id: 'celsius',
+        }, {
+          ticks:{
+            suggestedMin: 0,
+            suggestedMax: 100
+          },
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'right',
+          id: 'humidite',
+
+
+          // grid line settings
+          gridLines: {
+            drawOnChartArea: false, // only want the grid lines for one axis to show up
+          },
+        }],
+      },
+      title: {
+        display:false,
+      },
+
+    }
+  };
+}
+}
 
 /*################ Start of application ###############*/
 updateWidgets();
+var canvas1 = document.getElementById('graphique1').getContext('2d');
+var canvas2 = document.getElementById('graphique2').getContext('2d');
+var canvas3 = document.getElementById('graphique3').getContext('2d');
+optiond24chart = new skeletonGraph;
+optiond7chart = new skeletonGraph;
+optiond30chart = new skeletonGraph;
+var d24chart = new Chart(canvas1, optiond24chart.options);
+var d7chart = new Chart(canvas2, optiond7chart.options);
+var d30chart = new Chart(canvas3, optiond30chart.options);
 updateChart('#spinner1',d24chart,updateChartURL1)
