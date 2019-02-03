@@ -71,17 +71,10 @@
     </div>
     <div class="row"> <!-- row for header widgets and collapse button -->
       <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Température</th>
-            <th>Humidité</th>
-            <th>Eau</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Date</th><th>Température</th><th>Humidité</th><th>Eau</th></tr></thead>
         <tbody>
           {% for entry in page_obj %}
-          <tr><td>{{ entry.date }}</td><td>{{ entry.tempext }} °C</td><td>{{ entry.humid }} %</td><td>{{ entry.tempeau }} °C</td></tr>
+          <tr><td>{{ entry.date|date:"M d, y, H:i" }}</td><td>{{ entry.tempext }} °C</td><td>{{ entry.humid }} %</td><td>{{ entry.tempeau }} °C</td></tr>
           {% endfor %}
         </tbody>
       </table>
@@ -115,7 +108,7 @@
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   <script>
   updateURL='{% url "Widgets" %}'
-  updateChartURL1='{% url "Chart" type=1 %}'
+  updateChartURL1='{% url "Chart" type=1%}'
   updateChartURL2='{% url "Chart" type=2%}'
   updateChartURL3='{% url "Chart" type=3%}'
   </script>
