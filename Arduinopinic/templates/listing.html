@@ -1,53 +1,15 @@
 {% load staticfiles %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <!-- Boostrap initialisation -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-  <link href="{% static 'bootstrap/css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
-  <link href="{% static 'css/theme.css' %}" rel="stylesheet">
-  <script src="{% static 'bootstrap/js/ie-emulation-modes-warning.js' %}"></script>
-  <!-- Boostrap end of initialisation -->
-
-  <link rel="icon" href="{% static 'img/flavicon.png' %}">
-  <title>Arduinopinic v{{ version }}</title>
-</head>
-<body>
-  <nav class="navbar navbar-inverse navbar-fixed-top"> <!-- Def of navbar : Inversed color - fixed to top of screen -->
-    <div class="container-fluid"> <!-- container so that nav bar fit to all screen -->
-      <div class="navbar-header"> <!-- Brand name and button for xs screen -->
-        <a class="navbar-brand" href="#"><img src="{% static 'img/flavicon.png' %}" width="30" height="30" alt="Arduinopinic"></a>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> <!-- Toggle button if xs screen -->
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar"> <!-- Part of nav bar collapsed if xd xs screen -->
-        <ul class="nav navbar-nav navbar-left"> <!-- items on left of navbar -->
-          <li><a href="{% url "Index"%}">Home</a></li>
-          <li class="active"><a href="#">Metrics</a></li>
-          <li><a href="#">Page 2</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right"> <!-- items on right of navbar -->
-          <li><a href="#">Daemon status : <font  id=vstatus style="font-size: 22px;color:green;">&#9673; </font></a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+{% include 'header.html' %}
   <div class="container"> <!-- Main container -->
     <div class="row"> <!-- row for alerts to be popup -->
       <div class="container">
         <div class="col-sm-12" id=alert_box></div>
       </div>
     </div>
-    <div class="row">
-      <h2>List of measures</h2>
+    <div class="row"> <!-- row for title -->
+      <h2>Metrics</h2>
     </div>
-    <div class="row">
+    <div class="row"> <!-- row for top pagination -->
       <a class="btn btn-success" href='{% url "csvexport" %}'>Export to csv</a><br/>
       <ul class="pagination">
         {% if page_obj.has_previous %}
@@ -69,17 +31,17 @@
         {% endif %}
       </ul>
     </div>
-    <div class="row"> <!-- row for header widgets and collapse button -->
+    <div class="row"> <!-- row for table -->
       <table class="table table-striped">
         <thead><tr><th>Date</th><th>Température</th><th>Humidité</th><th>Eau</th></tr></thead>
         <tbody>
           {% for entry in page_obj %}
-          <tr><td>{{ entry.date|date:"M d, y, H:i" }}</td><td>{{ entry.tempext }} °C</td><td>{{ entry.humid }} %</td><td>{{ entry.tempeau }} °C</td></tr>
+          <tr><td>{{ entry.date|date:"M d, Y, H:i" }}</td><td>{{ entry.tempext }} °C</td><td>{{ entry.humid }} %</td><td>{{ entry.tempeau }} °C</td></tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
-    <div class="row">
+    <div class="row"> <!-- row for bottom pagination -->
       <ul class="pagination">
         {% if page_obj.has_previous %}
         <li><a href='{% url "Listing" page=page_obj.previous_page_number %}'>&laquo;</a></li>
@@ -106,12 +68,6 @@
   <!-- Boostrap JSinitialisation -->
   <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-  <script>
-  updateURL='{% url "Widgets" %}'
-  updateChartURL1='{% url "Chart" type=1%}'
-  updateChartURL2='{% url "Chart" type=2%}'
-  updateChartURL3='{% url "Chart" type=3%}'
-  </script>
   <script src="{% static 'js/moment-with-locales.js' %}"></script>
   <script src="{% static 'js/Chart.js' %}"></script>
   <script src="{% static 'js/listing.js' %}"></script>
