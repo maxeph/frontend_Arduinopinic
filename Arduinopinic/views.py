@@ -11,10 +11,12 @@ import os, csv
 version_global ='0.01a'
 def index(request):
 	version = version_global
+	view = "index"
 	return render(request, 'index.html', locals())
 
 def listing(request, page=1):
 	version = version_global
+	view = "listing"
 	entries = temp_db.objects.all().order_by('-date')
 	paginator = Paginator(entries, 50)
 	try:
