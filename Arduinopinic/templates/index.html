@@ -1,27 +1,42 @@
 {% load staticfiles %}
 {% include 'header.html' %}
-  <div class="container-fluid"> <!-- Main container -->
-    <div class="row"> <!-- row for alerts to be popup -->
-      <div class="container">
-        <div class="col-sm-12" id=alert_box></div>
+<div class="container-fluid"> <!-- Main container -->
+  <div class="row"> <!-- row for alerts to be popup -->
+    <div class="container">
+      <div class="col-sm-12" id=alert_box></div>
+    </div>
+  </div>
+  <div class="row"> <!-- row for header widgets and collapse button -->
+    <div class="col-sm-12"><h3>Widgets <button class="nobtn" data-toggle="collapse" data-target="#pan_widget">&#9662;</button></h3></div>
+  </div>
+  <div class="row collapse in widgetrow" id=pan_widget> <!-- row for widgets collpasable-->
+    <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=wtemp><span id=vtemp>N/A</span><br/>&#8451;</div></div>
+    <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=whumid><span id=vhumid>N/A</span><br/>%</div></div>
+    <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=weau><span id=veau>N/A</span><br/>&#8451;</div></div>
+    <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=wlevel><span id=vlevel>N/A</span><br/></div></div>
+  </div>
+  <div class="row"> <!-- row for header webcam/graph and collapse button -->
+    <div class="col-sm-12"><h3>Monitoring <button class="nobtn" data-toggle="collapse" data-target="#pan_graph">&#9662;</button></h3></div>
+  </div>
+  <div class="row collapse in" id=pan_graph> <!-- row for webcam/graph collpasable-->
+    <div class="col-sm-6"> <!-- pan for webcam-->
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#dwebcam">Webcam</a></li>
+        <li><a data-toggle="tab" href="#control">Control</a></li>
+        <li><a data-toggle="tab" href="#other2">Other2</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="dwebcam" class="tab-pane fade in active">
+          <img src="{% static 'img/webcam.jpg' %}" style="max-width:100%; padding-top:25px; padding-bottom:25px">
+        </div>
+        <div id="control" class="tab-pane fade">
+          <p style="padding-top:25px"><b>Start Daemon:</b></p>
+          <p><b>Up time:</b></p>
+
+        </div>
+        <div id="other2" class="tab-pane fade">
+        </div>
       </div>
-    </div>
-    <div class="row"> <!-- row for header widgets and collapse button -->
-      <div class="col-sm-12"><h3>Widgets <button class="nobtn" data-toggle="collapse" data-target="#pan_widget">&#9662;</button></h3></div>
-    </div>
-    <div class="row collapse in widgetrow" id=pan_widget> <!-- row for widgets collpasable-->
-      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=wtemp><span id=vtemp>N/A</span><br/>&#8451;</div></div>
-      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=whumid><span id=vhumid>N/A</span><br/>%</div></div>
-      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=weau><span id=veau>N/A</span><br/>&#8451;</div></div>
-      <div class="col-sm-3 col-xs-6 widgetpan"><div class="widget" id=wlevel><span id=vlevel>N/A</span><br/></div></div>
-    </div>
-    <div class="row"> <!-- row for header webcam/graph and collapse button -->
-      <div class="col-sm-12"><h3>Monitoring <button class="nobtn" data-toggle="collapse" data-target="#pan_graph">&#9662;</button></h3></div>
-    </div>
-    <div class="row collapse in" id=pan_graph> <!-- row for webcam/graph collpasable-->
-      <div class="col-sm-6"> <!-- pan for webcam-->
-        <div class="container-fluid camheader">Webcam</div>
-        <div class="container-fluid cambody"><img src="{% static 'img/webcam.jpg' %}" style="max-width:100%"></div>
       </div>
       <div class="col-sm-6"> <!-- pan for graph-->
         <ul class="nav nav-tabs">
@@ -52,10 +67,10 @@
   <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   <script>
-  updateURL='{% url "Widgets" %}'
-  updateChartURL1='{% url "Chart" type=1 %}'
-  updateChartURL2='{% url "Chart" type=2%}'
-  updateChartURL3='{% url "Chart" type=3%}'
+    updateURL='{% url "Widgets" %}'
+    updateChartURL1='{% url "Chart" type=1 %}'
+    updateChartURL2='{% url "Chart" type=2%}'
+    updateChartURL3='{% url "Chart" type=3%}'
   </script>
   <script src="{% static 'js/moment-with-locales.js' %}"></script>
   <script src="{% static 'js/Chart.js' %}"></script>
