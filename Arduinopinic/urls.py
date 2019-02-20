@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name = 'Index'      ),
     url(r'^updateWidgets/$', views.updateWidgets, name = 'Widgets'),
+    url(r'^updateStats/$', views.updateStats, name = 'Stats'),
     url(r'^updateChart/(?P<type>[1-3]{1})/$', views.updateChart, name = 'Chart'),
     url(r'^listing/(?P<page>[0-9]+)', views.listing, name = 'Listing'),
     url(r'^tools/csv/$', views.export_temp_csv, name = 'csvexport'),

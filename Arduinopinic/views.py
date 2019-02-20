@@ -3,8 +3,9 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
+from django.utils import timezone
 from datetime import datetime, timedelta
-from Arduinopinic.models import temp_db
+from Arduinopinic.models import temp_db, config, session
 from django.core.paginator import Paginator, EmptyPage
 import os, csv
 
@@ -49,16 +50,25 @@ def updateWidgets(request):
 		server["isempty"] = False
 	#########################################################################
 	###### Test if daemon is running ########################################
-	if	(len(os.popen("pgrep -f piserver.py").readlines())) > 1:
+	if	(len(os.popen("pgrep -f daemon.py").readlines())) > 1:
 		server["status"] = True
 	else:
 		server["status"] = False
 	#########################################################################
 	return JsonResponse(server)
 
+def updateStats(request):
+	stats = dict() # dict to be sent via Json
+	last_entry = session.objects.last()
+	stats["rundate"] = last_entry.runtime
+	stats["success"] = last_entry.success
+	stats["attempts"] = last_entry.attempts
+	stats["loop"] = last_entry.loop
+	return JsonResponse(stats)
+
 def updateChart(request,type):
 	###### Taking last 24h/7d/30d ###########################################
-	end_range = datetime.now()
+	end_range = timezone.localtime()
 	if type == '1':
 		range = timedelta(days=1)
 	elif type == '2':
