@@ -23,18 +23,20 @@
       <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#dwebcam">Webcam</a></li>
         <li><a data-toggle="tab" href="#control">Control</a></li>
-        <li><a data-toggle="tab" href="#other2">Other2</a></li>
       </ul>
       <div class="tab-content">
         <div id="dwebcam" class="tab-pane fade in active">
           <img src="{% static 'img/webcam.jpg' %}" style="max-width:100%; padding-top:25px; padding-bottom:25px">
         </div>
         <div id="control" class="tab-pane fade">
-          <p style="padding-top:25px"><b>Start Daemon:</b></p>
-          <p><b>Up time:</b></p>
-
-        </div>
-        <div id="other2" class="tab-pane fade">
+          <p style="padding-top:25px"><b>Start Daemon: </b><span id=rundate>N/A</span></p>
+          <p><b>Up time: </b><span id=runtime>N/A</span></p>
+          <p><b>Measures: </b><span id=measures>N/A</span></p>
+          <p><b>Success: </b><span id=success>N/A</span></p>
+          <p><b>Attempts: </b><span id=attempts>N/A</span></p>
+          <button type="button" class="btn btn-default btn-sm" id=refreshstats>
+          <span class="glyphicon glyphicon-refresh"></span> Refresh
+        </button>
         </div>
       </div>
       </div>
@@ -71,6 +73,7 @@
     updateChartURL1='{% url "Chart" type=1 %}'
     updateChartURL2='{% url "Chart" type=2%}'
     updateChartURL3='{% url "Chart" type=3%}'
+    updatestats='{% url "Stats" %}'
   </script>
   <script src="{% static 'js/moment-with-locales.js' %}"></script>
   <script src="{% static 'js/Chart.js' %}"></script>

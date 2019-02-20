@@ -111,6 +111,20 @@ $('.nav-tabs a[href="#d30"]').on('show.bs.tab', function(event){
     tab3 = true;
   }
 });
+/*################ Function get statistics ##################################*/
+function updateStats()
+{
+  $.getJSON( updatestats, function(data) {
+    $('#rundate').text(moment(data.rundate).format('MMMM Do YYYY, H:mm'));
+    $('#runtime').text(moment.duration(moment(data.rundate).diff()).humanize());
+    $('#measures').text(data.loop);
+    $('#success').text(data.success);
+    $('#attempts').text(data.attempts);
+  })
+  .fail(function(data) {
+    pop_alert("<Strong>Error !</Strong> Impossible to get statistics about daemon","danger");
+  });
+}
 /*################ object for Skeleton of graph #######################################################*/
 
 class skeletonGraph {
@@ -184,7 +198,11 @@ class skeletonGraph {
 }
 
 /*################ Start of application ###############*/
+$("#refreshstats").click(function() {
+  updateStats();
+});
 updateWidgets();
+updateStats();
 var canvas1 = document.getElementById('graphique1').getContext('2d');
 var canvas2 = document.getElementById('graphique2').getContext('2d');
 var canvas3 = document.getElementById('graphique3').getContext('2d');
