@@ -15,24 +15,24 @@ class temp_db(models.Model):
 		return str(self.date)
 
 class config(models.Model):
-        i2c = models.PositiveIntegerField()
+	i2c = models.PositiveIntegerField()
 	delay = models.PositiveIntegerField()
 	timezone = models.CharField(max_length=100)
 	lastmodified = models.DateTimeField()
 	check = models.PositiveIntegerField(default=0,unique=True)
 
-        def __str__(self):
-                return str(self.lastmodified)
+	def __str__(self):
+		return str(self.lastmodified)
 
 class session(models.Model):
-        pid = models.PositiveIntegerField()
-        path = models.CharField(max_length=200)
-        runtime = models.DateTimeField()
+	pid = models.PositiveIntegerField()
+	path = models.CharField(max_length=200)
+	runtime = models.DateTimeField()
 	success = models.PositiveIntegerField(default=0)
 	attempts = models.PositiveIntegerField(default=0)
 	loop = models.PositiveIntegerField(default=0)
-        lastmodified = models.DateTimeField()
+	lastmodified = models.DateTimeField()
 
-        def __str__(self):
-                return str(self.runtime)
+	def __str__(self):
+		return str(self.runtime)
 
